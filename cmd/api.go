@@ -1,6 +1,7 @@
 package main
 
 import (
+	repo "ecom/internal/adapters/postgresql/sqlc"
 	"ecom/internal/products"
 	"log"
 	"net/http"
@@ -8,6 +9,7 @@ import (
 
 	"github.com/go-chi/chi/v5"
 	"github.com/go-chi/chi/v5/middleware"
+	"github.com/jackc/pgx/v5"
 )
 
 // mount - create all the endpoints
@@ -27,7 +29,7 @@ func (app *application) mount() http.Handler {
 		w.Write([]byte("all good"))
 	})
 
-	productService := products.NewService()
+	productService := products.NewService(repo.New(app.db))
 	productHandler := products.NewHandler(productService)
 
 	r.Get("/products", productHandler.ListProducts)
@@ -54,6 +56,7 @@ type application struct {
 	config config
 	// logger
 	// db driver
+	db *pgx.Conn
 }
 
 type config struct {

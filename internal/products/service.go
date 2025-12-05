@@ -1,20 +1,25 @@
 package products
 
-import "context"
+import (
+	"context"
+	repo "ecom/internal/adapters/postgresql/sqlc"
+)
 
 type Service interface {
-	ListProducts(ctx context.Context) error
+	ListProducts(ctx context.Context) ([]repo.Product, error)
 }
 
 // Dependency injeciton here of repository
 type svc struct {
 	// repository
+	repo repo.Querier
 }
 
-func NewService() Service {
-	return &svc{}
+func NewService(repo *repo.Queries) Service {
+	return &svc{repo: repo}
 }
 
-func (s *svc) ListProducts(ctx context.Context) error {
-	return nil
+func (s *svc) ListProducts(ctx context.Context) ([]repo.Product, error) {
+	return s.repo.ListProducts(ctx)
+
 }
