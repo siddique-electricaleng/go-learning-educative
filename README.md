@@ -1,8 +1,9 @@
 # Backend Engineering with Go
 > This project was built following the YouTube video [Building a Production API in Golang from Scratch (Ecommerce project)](https://youtu.be/s3XItrqfccw?si=koUVU72SetlnyluS) by Tiago, with additional help from ChatGPT.
 
-## Overview
 A learning project for backend REST API development using Go.
+
+> **Note:** Currently using PostgreSQL 18 via Docker Compose. Plan to migrate to a locally hosted instance on the machine.
 
 ## Features
 - RESTful API design
