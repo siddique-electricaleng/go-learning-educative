@@ -16,7 +16,7 @@ func main() {
 	cfg := config{
 		addr: ":8080",
 		db: dbConfig{
-			dsn: env.GetString("GOOSE_DBSTRING", "host=localhost port=5432 user=postgres password=Localpg12W1 dbname=products_db sslmode=disable"),
+			dsn: env.GetString("GOOSE_DBSTRING", "host=localhost port=5432 user=postgres password=Localpg12W1 dbname=products sslmode=disable"),
 		},
 	}
 

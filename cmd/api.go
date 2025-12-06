@@ -2,6 +2,7 @@ package main
 
 import (
 	repo "ecom/internal/adapters/postgresql/sqlc"
+	"ecom/internal/orders"
 	"ecom/internal/products"
 	"log"
 	"net/http"
@@ -33,6 +34,11 @@ func (app *application) mount() http.Handler {
 	productHandler := products.NewHandler(productService)
 
 	r.Get("/products", productHandler.ListProducts)
+	r.Get("/products/{id}", productHandler.GetProductByID)
+
+	ordersService := orders.NewService(repo.New(app.db), app.db)
+	ordersHandler := orders.NewHandler(ordersService)
+	r.Post("/orders", ordersHandler.PlaceOrder)
 
 	return r
 }
